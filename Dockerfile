@@ -9,8 +9,6 @@ ENV HOME=/root \
 	LANG=en_US.UTF-8 \
 	LANGUAGE=en_US.UTF-8
 
-COPY cron-librenms /etc/cron.d/librenms
-
 # Let's start!
 RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data && \
 	locale-gen pl_PL.UTF-8 && locale-gen en_US.UTF-8 && locale-gen fi_FI.UTF-8 && \ 
@@ -37,6 +35,7 @@ RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data 
     	chown -R www-data:www-data /var/log/apache2 && \
     	chmod 0644 /etc/cron.d/librenms
     	COPY config.php /opt/librenms/
+    	COPY cron-librenms /etc/cron.d/librenms
 
 #RRDCACHED Configuration
 RUN mkdir /var/run/rrdcached && \
