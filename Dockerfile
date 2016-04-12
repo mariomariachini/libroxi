@@ -1,6 +1,6 @@
 # Dockerfile Librenms + Oxidized
 FROM ubuntu:14.04
-MAINTAINER Mariusz Michalowski <mariusz.michalowski@cybercom.com>
+MAINTAINER MM <wisniowy@g.pl>
 
 # Set correct environment variables.
 ENV HOME=/root \
@@ -26,7 +26,7 @@ RUN
     
 	# Make proper directories and clone official librenms repo and start installation
 	mkdir /opt && cd /opt && \
-	git clone https://github.com/librenms/librenms.git librenms && \
+	git clone  --depth 1 https://github.com/librenms/librenms.git librenms && \
 	cd /opt/librenms && \
 	mkdir rrd logs && \
 	chown -R librenms:librenms /opt/librenms && \
@@ -34,10 +34,10 @@ RUN
 	
 	#Copy configs to /etc/apache2/sites-available/librenms.conf
 	COPY librenms.conf /etc/apache2/sites-available/librenms.conf
-    php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default\
-    rm /etc/apache2/sites-available/default-ssl.conf && \
-    chown -R www-data:www-data /var/log/apache2 && \
-    chmod 0644 /etc/cron.d/librenms
+    	php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default\
+    	rm /etc/apache2/sites-available/default-ssl.conf && \
+    	chown -R www-data:www-data /var/log/apache2 && \
+    	chmod 0644 /etc/cron.d/librenms
 
 COPY apache2.conf ports.conf /etc/apache2/
 COPY apache-vhost /etc/apache2/sites-available/000-default.conf
