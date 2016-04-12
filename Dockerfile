@@ -15,7 +15,7 @@ RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data 
 	
 	#Update sys and install proper packages
 	apt-get update -q && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
 		libapache2-mod-php5 php5-cli php5-mysql php5-gd php5-snmp php-pear php5-curl snmp graphviz 
 		php5-mcrypt php5-json apache2 fping imagemagick whois mtr-tiny nmap python-mysqldb snmpd 
 		php-net-ipv4 php-net-ipv6 rrdtool git at rrdcached memcached php5-ldap && \
