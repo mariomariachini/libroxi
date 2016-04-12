@@ -35,12 +35,9 @@ RUN
 	#Copy configs to /etc/apache2/sites-available/librenms.conf
 	COPY librenms.conf /etc/apache2/sites-available/librenms.conf
     	php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default\
-    	rm /etc/apache2/sites-available/default-ssl.conf && \
     	chown -R www-data:www-data /var/log/apache2 && \
     	chmod 0644 /etc/cron.d/librenms
-
-COPY apache2.conf ports.conf /etc/apache2/
-COPY apache-vhost /etc/apache2/sites-available/000-default.conf
+    	COPY config.php /opt/librenms/
 
 #RRDCACHED Configuration
 RUN mkdir /var/run/rrdcached && \
