@@ -33,7 +33,7 @@ RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data 
 	
 	#Copy configs to /etc/apache2/sites-available/librenms.conf
 	COPY librenms.conf /etc/apache2/sites-available/librenms.conf
-    	php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default\
+    	RUN php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default && \
     	chown -R www-data:www-data /var/log/apache2 && \
     	chmod 0644 /etc/cron.d/librenms
     	COPY config.php /opt/librenms/
