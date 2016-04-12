@@ -20,6 +20,7 @@ RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data 
 		php5-mcrypt php5-json apache2 fping imagemagick whois mtr-tiny nmap python-mysqldb snmpd 
 		php-net-ipv4 php-net-ipv6 rrdtool git at rrdcached memcached php5-ldap && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    	RUN php5enmod mcrypt && \
     
 	# Make proper directories and clone official librenms repo and start installation
 	mkdir /opt && cd /opt && \
@@ -31,7 +32,7 @@ RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data 
 	
 	#Copy configs to /etc/apache2/sites-available/librenms.conf
 	COPY librenms.conf /etc/apache2/sites-available/librenms.conf
-    	RUN php5enmod mcrypt && a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default && \
+    	RUN a2ensite librenms.conf && a2enmod rewrite && service apache2 restart && a2dissite 000-default && \
     	chown -R www-data:www-data /var/log/apache2 && \
     	chmod 0644 /etc/cron.d/librenms
     	COPY config.php /opt/librenms/
