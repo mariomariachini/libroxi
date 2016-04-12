@@ -1,0 +1,38 @@
+---
+username: librenms
+password: librenms
+model: junos
+interval: 3600
+use_syslog: false
+debug: false
+threads: 30
+timeout: 20
+retries: 3
+prompt: !ruby/regexp /^([\w.@-]+[#>]\s?)$/
+rest: 127.0.0.1:8888
+vars: {}
+groups: {}
+input:
+  default: ssh, telnet
+  debug: false
+  ssh:
+    secure: false
+output:
+  default: file
+  file:
+    directory: "/root/.config/oxidized/configs"
+source:
+  default: http
+  http:
+    url: http://10.31.25.109/api/v0/oxidized
+    scheme: http
+    delimiter: !ruby/regexp /:/
+    map:
+      name: hostname
+      model: os
+      group: group
+    headers:
+      X-Auth-Token: 8877b199a412e4b3e4456a796a6c7f1f
+model_map:
+  cisco: ios
+  juniper: junos
