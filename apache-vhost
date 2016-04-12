@@ -1,17 +1,10 @@
 <VirtualHost *:80>
-       ServerAdmin webmaster@localhost
-       DocumentRoot /opt/librenms/html
-       <Directory />
-               Options FollowSymLinks
-               AllowOverride None
-       </Directory>
-       <Directory /opt/librenms/html/>
-              Options Indexes FollowSymLinks MultiViews
-              Require all granted
-              AllowOverride All
-      </Directory>
-       ErrorLog  /data/logs/error_log
-       LogLevel warn
-       CustomLog  /data/logs/access_log combined
-       ServerSignature On
+  DocumentRoot /opt/librenms/html/
+  CustomLog /opt/librenms/logs/access_log combined
+  ErrorLog /opt/librenms/logs/error_log
+  AllowEncodedSlashes On
+  <Directory "/opt/librenms/html/">
+    AllowOverride All
+    Options FollowSymLinks MultiViews
+  </Directory>
 </VirtualHost>
