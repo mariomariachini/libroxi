@@ -11,9 +11,8 @@ ENV HOME=/root \
 
 COPY cron-librenms /etc/cron.d/librenms
 
-RUN 
-	#Proper Users
-	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data && \
+# Let's start!
+RUN 	useradd librenms -d /opt/librenms -M -r && usermod -a -G librenms www-data && \
 	locale-gen pl_PL.UTF-8 && locale-gen en_US.UTF-8 && locale-gen fi_FI.UTF-8 && \ 
 	
 	#Update sys and install proper packages
